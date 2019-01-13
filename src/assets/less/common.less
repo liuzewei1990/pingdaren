@@ -1,0 +1,71 @@
+
+@import "./mixin/index.less";
+
+/*清除浮动*/
+.clearfix:after{clear: both;content: " ";display: block;font-size: 0;height: 0;visibility: hidden}
+.clearfix{zoom: 1}
+/* 全局header高度*/
+.m-t-header{margin-top: 46px;}
+/*按钮不可点击事件*/
+.disable, .disabled{background: #e5e5e5 !important;color: #999 !important;}
+/* 1px类名 */
+.top-1px{position: relative; &::before{.setTopLine();} }
+.bottom-1px{position: relative; &::after{.setBottomLine();}}
+.left-1px{position: relative; &::before{.setLeftLine();}}
+.right-1px{position: relative; &::after{.setRightLine();}}
+/* 字号类名 */
+.font-10{font-size: 12px;}
+.font-12{font-size: 12px;}
+.font-14{font-size: 14px;}
+.font-16{font-size: 16px;}
+.font-18{font-size: 18px;}
+.font-20{font-size: 20px;}
+/*margin样式*/
+.m-0{margin: 0px !important}
+.m-5{margin: 5px !important}
+.m-10{margin: 10px !important}
+.m-15{margin: 15px !important}
+.m-20{margin: 20px !important}
+.m-25{margin: 25px !important}
+.m-30{margin: 30px !important}
+.m-t-0{margin-top: 0px !important;}
+.m-t-5{margin-top: 5px !important}
+.m-t-10{margin-top: 10px !important}
+.m-t-15{margin-top: 15px !important}
+.m-t-20{margin-top: 20px !important}
+.m-t-25{margin-top: 25px !important}
+.m-t-30{margin-top: 30px !important}
+.m-r-10{margin-right: 10px !important}
+.m-r-30{margin-right: 30px !important}
+.m-b-0{margin-bottom: 0px !important}
+.m-b-5{margin-bottom: 5px !important}
+.m-b-10{margin-bottom: 10px !important}
+.m-b-15{margin-bottom: 15px !important}
+.m-b-20{margin-bottom: 20px !important}
+.m-b-25{margin-bottom: 25px !important}
+.m-b-30{margin-bottom: 30px !important}
+/*padding样式*/.p-0{padding: 0px !important}
+.p-5{padding: 5px !important}
+.p-10{padding: 10px !important}
+.p-15{padding: 15px !important}
+.p-20{padding: 20px !important}
+.p-25{padding: 25px !important}
+.p-30{padding: 30px !important}
+.p-l-20{padding-left: 20px !important}
+.p-t-0{padding-top: 0px !important}
+.p-t-5{padding-top: 5px !important}
+.p-t-10{padding-top: 10px !important}
+.p-t-15{padding-top: 15px !important}
+.p-t-20{padding-top: 20px !important}
+.p-b-0{padding-bottom: 0px !important}
+.p-b-5{padding-bottom: 5px !important}
+.p-b-10{padding-bottom: 10px !important}
+.p-b-15{padding-bottom: 15px !important}
+.p-t-20{padding-top: 20px !important}
+/*空白位置*/.blank-div{height: 10px;background: #f3f5f7;width: 100%;clear: both;}
+.hide{display: none;}
+.show{display: block}
+.header-fix{position: fixed !important;width: 100%;top: 0;left: 0;background: #fafafa;zoom: 1;z-index: 1000;border-bottom: 1px solid #eee;}
+.padding-top-46{padding-top: 46px;}
+.bg-color{background: #f23030;}
+/*弹出层显示时候，遮罩层底部是可以滑动的，给body一个高度，阻止滑动*/body.visibly, html.visibly{position: fixed;left: 0;top: 0;right: 0;margin: auto;width: 100%;z-index: 1;height: 100%;overflow: hidden;}
