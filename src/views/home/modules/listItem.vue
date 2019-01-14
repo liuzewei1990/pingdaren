@@ -12,7 +12,7 @@
                 </div>
                 <div class="content">
                         <div class="title">{{item.title}}</div>
-                        <span class="brief" :class="{'lineclamp':!!item.images_info[0]}">{{item.content}}</span>
+                        <span class="brief" :class="{'lineclamp':!!item.images_info[0]}" v-html="item.content"></span>
                 </div>
                 <div class="count">
                         <div class="count-item">
@@ -114,6 +114,7 @@ export default {
                 white-space: pre-line; //合并空白符序列，但是保留换行符。
                 text-align: left;
                 //     height: 31px;
+                line-height: 22 / @rem;
                 margin-top: 10 / @rem;
                 box-sizing: border-box;
                 font-size: 18 / @rem;

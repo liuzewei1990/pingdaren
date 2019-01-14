@@ -123,7 +123,14 @@ export default {
                         color: #333333;
                         font-size: 20 / @rem;
                         font-weight: 500;
+                        line-height: 24 / @rem;
                 }
+        }
+        .content {
+                line-height: 22 / @rem;
+                font-size: 16 / @rem;
+                color: #797777;
+                letter-spacing: 0.6px;
         }
         .count {
                 display: flex;
