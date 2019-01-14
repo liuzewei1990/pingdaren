@@ -5,7 +5,7 @@ module.exports = {
                         secure: false,
                         changeOrigin: true,
                         cookieDomainRewrite: {
-                                '*': '192.168.100.235'
+                                '*': 'localhost'
                         },
                         // pathRewrite: {
                         //         '^/apis': ''   //需要rewrite的,

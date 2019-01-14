@@ -27,7 +27,7 @@ export default {
                 return {
                         phoneNo: "",
                         code: "",
-                        redirect: this.$route.query["redirect"]
+                        redirect: this.$route.query["redirect"] || window.location.href
                 }
         },
         methods: {

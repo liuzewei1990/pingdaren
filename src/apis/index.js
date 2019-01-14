@@ -8,7 +8,12 @@ export const getClassifyList = () => http.get(base.oaIp, `/api/classify`, {}, fa
 
 // 个人信息
 export const getUserInfo = () => http.get(base.oaIp, `/api/user/info`, {}, false, false)
+// 获取个人主页
 export const getUserDetail = (uid) => http.get(base.oaIp, `/api/user/${uid}`, {}, false, false)
+// 个人信息修改
+export const postUserUpdate = (params) => http.postJson(base.oaIp, `/api/user/update`, params, true, false)
+// 用户修改头像
+export const postUserPhoto = (params) => http.postFile(base.oaIp, `/api/user/photo`, params, true, false)
 
 // 用户点赞
 export const postArticleLike = (aid, params) => http.postForm(base.oaIp, `/api/article/${aid}/like`, params, true, true)

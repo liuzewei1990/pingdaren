@@ -27,13 +27,13 @@ export default new Router({
                         name: 'create',
                         path: '/create',
                         component: () => import(/* webpackChunkName: "create" */ '@src/views/create/index.vue'),
-                        meta: { title: '发布帖子' }
+                        meta: { title: '发布帖子', requiresAuth: true }
                 },
                 {
                         name: 'message',
                         path: '/message',
                         component: () => import(/* webpackChunkName: "message" */ '@src/views/message/index.vue'),
-                        meta: { title: '消息中心' }
+                        meta: { title: '消息中心', requiresAuth: true }
                 },
                 {
                         name: 'personalCenter',
@@ -45,13 +45,13 @@ export default new Router({
                         name: 'setting',
                         path: '/setting',
                         component: () => import(/* webpackChunkName: "setting" */ '@src/views/setting/index.vue'),
-                        meta: { title: '个人资料' }
+                        meta: { title: '个人资料', requiresAuth: true }
                 },
                 {
                         name: 'user',
                         path: '/user',
                         component: () => import(/* webpackChunkName: "user" */ '@src/views/user/index.vue'),
-                        meta: { title: '个人中心', keepAlive: true }
+                        meta: { title: '个人中心', keepAlive: true, requiresAuth: true }
                 },
                 {
                         name: 'login',

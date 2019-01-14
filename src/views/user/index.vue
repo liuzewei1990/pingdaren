@@ -2,7 +2,7 @@
         <TabbarLayout v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false" infinite-scroll-disabled="infiniteDisabled" infinite-scroll-distance="80">
                 <div class="header bottom-1px">
                         <div class="head_img" @click="$router.push({name:'setting'})">
-                                <img v-if="userInfo.photo" :src="userInfo.photo" alt="">
+                                <img v-if="userInfo.photo" :src="APP.fileUrl + userInfo.photo" alt="">
                                 <img v-else :src="require('@src/assets/img/default.jpg')" alt="">
                         </div>
                         <h4 class="name m-t-5">{{userInfo.nickname}}</h4>
@@ -68,11 +68,11 @@ export default {
                 }
         },
         created() {
-                this.getUserInfo();
         },
         activated() {
+                this.getUserInfo();
                 this.query.p = 0;
-                this.loadMore(true)
+                this.loadMore(true);
         },
         methods: {
                 ...mapActions(["getUserInfo"]),

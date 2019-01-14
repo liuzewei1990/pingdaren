@@ -83,7 +83,6 @@ export default {
 
                 // 修改用户信息
                 async userInfoUpdata({ commit, dispatch }, userInfo) {
-                        let data = await userInfoUpdata(userInfo);
                         commit(types.SET_USERINFO, userInfo);
                 },
 
@@ -95,7 +94,6 @@ export default {
 
                 // 登出
                 async fedLogOut({ commit, dispatch }) {
-                        userExit();
                         removeToken();
                         window.location.reload();
                 },

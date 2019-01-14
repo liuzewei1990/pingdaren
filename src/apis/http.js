@@ -21,7 +21,6 @@ axios.interceptors.request.use(function (config) {
 //全局响应拦截器
 axios.interceptors.response.use(function (response) {
         let config = response.config;
-        console.log(response)
         // 关闭loading...
         store.dispatch('closeGlobalLoading');
         //如果状态吗正常直接返回data中的数据
@@ -158,6 +157,22 @@ export default {
                                 // 'Cache-Control': 'no-cache',
                                 // "Content-Type": "text/html"
                                 "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
+                        },
+                })
+        },
+        postFile: function (baseURL, url, data, loading, isCode) {
+                let isLoading = loading || false;
+                let isGetCode = isCode || false;
+                return axios({
+                        method: "post",
+                        url: url,
+                        baseURL: baseURL,
+                        data: data,
+                        timeout: 20000,
+                        isLoading,
+                        isGetCode,
+                        headers: {
+                                'Content-Type': 'multipart/form-data'
                         },
                 })
         },

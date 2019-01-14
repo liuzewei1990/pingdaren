@@ -7,7 +7,7 @@
                 </div>
                 <div class="goods-header" v-if="item.images_info[0] ">
                         <div class="goods-img">
-                                <img :src="item.images_info[0] && base.oaIp + item.images_info[0].path" />
+                                <img :src="item.images_info[0] && APP.fileUrl + item.images_info[0].path" />
                         </div>
                 </div>
                 <div class="content">
@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import base from "@src/apis/base.js"
 import Button from "@src/components/v-button"
 export default {
         components: { Button },
@@ -38,7 +37,6 @@ export default {
         },
         data() {
                 return {
-                        base: base
                 }
         },
         methods: {

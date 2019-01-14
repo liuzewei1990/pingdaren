@@ -27,24 +27,24 @@ export default {
         position: relative;
         display: flex;
         background-color: #fff;
-        padding: 12 / @rem 3%;
+        padding: 16 / @rem 3%;
         box-sizing: border-box;
         overflow: hidden;
         align-items: center;
         font-size: 14 / @rem;
 
         .title {
-                flex: 1.2;
+                width: 100 / @rem;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                //   font-size: 16px;
+                font-size: 16 / @rem;
         }
 
         .desc {
                 //   font-size: 24px;
                 color: #aaa;
-                //   flex: 0.8;
+                flex: 1;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
