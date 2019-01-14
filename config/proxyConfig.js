@@ -1,12 +1,17 @@
 module.exports = {
         proxy: {
-                '/api': {    //将www.exaple.com印射为/apis
-                        target: 'http://m.pingdaren.cn',  // 接口域名
-                        secure: false,  // 如果是https接口，需要配置这个参数
-                        changeOrigin: true,  //是否跨域
+                '/api': {
+                        target: 'http://m.pingdaren.cn',
+                        secure: false,
+                        changeOrigin: true,
+                        cookieDomainRewrite: {
+                                '*': '192.168.100.235'
+                        },
                         // pathRewrite: {
                         //         '^/apis': ''   //需要rewrite的,
                         // }
+                        // 把相应的 cookie 域都设置成 localhost，或者指定的域名
+
                 }
         }
 }

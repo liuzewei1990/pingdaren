@@ -1,31 +1,38 @@
 <template>
-        <TabbarLayout>
+        <TabbarLayout v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false" infinite-scroll-disabled="infiniteDisabled" infinite-scroll-distance="80">
                 <div class="header bottom-1px">
                         <div class="head_img" @click="$router.push({name:'setting'})">
-                                <img :src="require('@src/assets/img/default.jpg')" alt="">
+                                <img v-if="userInfo.photo" :src="userInfo.photo" alt="">
+                                <img v-else :src="require('@src/assets/img/default.jpg')" alt="">
                         </div>
-                        <h4 class="name m-t-5">我是大美女</h4>
-                        <p class="uid m-t-5">ID:131131313</p>
-                        <p class="desc m-t-5">签名签名</p>
+                        <h4 class="name m-t-5">{{userInfo.nickname}}</h4>
+                        <p class="uid m-t-5">ID:{{userInfo.id}}</p>
+                        <p class="desc m-t-5">{{userInfo.autograph || "这货很懒什么也没写"}}</p>
                 </div>
                 <div class="count">
                         <ul>
                                 <li>
-                                        <p>0</p>
-                                        <span>点赞</span>
+                                        <p>{{userInfo.like_nub || 0}}</p>
+                                        <span>我的收藏</span>
                                 </li>
                                 <li>
-                                        <p>0</p>
-                                        <span>关注</span>
+                                        <p>{{userInfo.follow_nub || 0}}</p>
+                                        <span>我的关注</span>
                                 </li>
                                 <li>
-                                        <p>0</p>
-                                        <span>粉丝</span>
+                                        <p>{{userInfo.fans_nub || 0}}</p>
+                                        <span>我的粉丝</span>
                                 </li>
                         </ul>
                 </div>
                 <div class="main m-t-10">
                         <ListItem v-for="(item,index) in list" :key="index" :item="item"></ListItem>
+                        <div style="min-height:80px; overflow: hidden;">
+                                <LoadMore v-if="status=='请求中'" tip="努力加载中..." :showLoading="true"></LoadMore>
+                                <LoadMore v-if="status=='没有更多'" tip="到底了~" :showLoading="false"></LoadMore>
+                                <LoadMore v-if="status=='请求失败'" tip="加载失败，点我重试" :showLoading="false" @click.native="loadMore"></LoadMore>
+                                <!-- <Nodata v-if="status=='暂无数据'" :imgurl="require('@src/assets/img/bg_empty_data.png')" content='暂无收藏记录'></Nodata> -->
+                        </div>
                 </div>
         </TabbarLayout>
 </template>
@@ -33,32 +40,69 @@
 <script>
 import TabbarLayout from "@src/layouts/tabbar.vue"
 import ListItem from "@src/views/home/modules/listItem.vue"
+import LoadMore from "@src/components/v-load-more"
+import { getUserInfo, getArticleList } from "@src/apis"
+import { mapState, mapActions, mapGetters } from "vuex";
+import infiniteScroll from '@src/directives/vue-infinite-scroll'
 export default {
-        components: { TabbarLayout, ListItem },
+        components: { TabbarLayout, ListItem, LoadMore },
+        directives: { infiniteScroll },
         data() {
                 return {
-                        list: [
-                                {
-                                        admin_lock: false,
-                                        classify_id: 1,
-                                        classify_name: "体验",
-                                        comment_nub: 0,
-                                        comments: null,
-                                        content: "11本贴为2015年第一季度（1.1-3.31）官方水楼刷经验专贴，禁止再其他贴刷经验，吧友发现他人在你的贴恶意刷贴，请及时举报，严格处理&nbsp;&nbsp;<h4><span>2015.1.1</span></h4>",
-                                        created: "2019-01-09T14:13:11+08:00",
-                                        hide: false,
-                                        id: 43,
-                                        images: [],
-                                        images_info: [],
-                                        like: false,
-                                        like_nub: 0,
-                                        name: "评_19058600",
-                                        read_count: 0,
-                                        title: "【中国好声音】15年第一季度☆官方专业刷贴水楼！！",
-                                        uid: 19058600,
-                                        updated: "2019-01-09T14:13:11+08:00"
-                                }
-                        ]
+                        status: "", // 加载状态
+                        query: {
+                                p: 0,
+                                self: true
+                        },
+                        list: [],
+                }
+        },
+        computed: {
+                ...mapGetters(["isLogin"]),
+                ...mapState({
+                        userInfo: state => state.user.userInfo
+                }),
+                // 返回true禁用下拉加载
+                infiniteDisabled() {
+                        return this.status == '请求中' || this.status == '第一次加载' || this.status == '没有更多' || this.status == '暂无数据' || this.status == '请求失败';
+                }
+        },
+        created() {
+                this.getUserInfo();
+        },
+        activated() {
+                this.query.p = 0;
+                this.loadMore(true)
+        },
+        methods: {
+                ...mapActions(["getUserInfo"]),
+
+                // 请求函数
+                async loadMore(isFrst = false) {
+                        try {
+                                this.status = isFrst ? "第一次加载" : "请求中";
+                                let data = await getArticleList(this.query);
+                                this.setData(data, isFrst);
+                        } catch (error) {
+                                this.status = "请求失败";
+                        }
+                },
+                // 设置数据
+                setData(data, isFrst = false) {
+                        if (isFrst) {
+                                this.list = data;
+                        } else {
+                                this.list = this.list.concat(data);
+                        }
+                        // 是否有更多数据
+                        if (this.list.length === 0) {
+                                this.status = "暂无数据";
+                        } else if (data.length < 10) {
+                                this.status = "没有更多";
+                        } else {
+                                this.status = "请求更多";
+                                this.query.p++;
+                        }
                 }
         }
 }

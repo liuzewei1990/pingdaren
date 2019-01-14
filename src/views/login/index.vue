@@ -20,6 +20,7 @@ import { postLoginVc, postToken, postLogin } from "@src/apis"
 import { getStorage, setStorage } from '@src/utils/storage.js'
 import { mapState, mapActions, mapGetters } from "vuex";
 import channel from '@src/utils/channel.js'
+import { getToken, setToken, removeToken } from '@src/utils/auth.js'
 export default {
         components: { TimerBtn },
         data() {
@@ -72,6 +73,7 @@ export default {
                         let res = await postLogin({ token: TOKEN, phone: this.phoneNo, code: this.code, referee: channel.get() });
 
                         if (res.status == true) {
+                                setToken("true")
                                 window.location.href = decodeURIComponent(this.redirect);
                         } else {
                                 this.Toast.fail(res.msg);

@@ -51,7 +51,7 @@ export default new Router({
                         name: 'user',
                         path: '/user',
                         component: () => import(/* webpackChunkName: "user" */ '@src/views/user/index.vue'),
-                        meta: { title: '个人中心', }
+                        meta: { title: '个人中心', keepAlive: true }
                 },
                 {
                         name: 'login',

@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'pdr_token'
+const TokenKey = 'PDR';
 
 export function getToken() {
         return Cookies.get(TokenKey)

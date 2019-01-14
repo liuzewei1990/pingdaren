@@ -83,6 +83,8 @@ export default {
                         if (res.status == true) {
                                 this.detail.like = newLike;
                                 this.detail.like_nub++;
+                        } else {
+                                this.Toast.fail(res.msg)
                         }
                 },
 

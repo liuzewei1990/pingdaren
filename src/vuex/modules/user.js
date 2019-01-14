@@ -1,5 +1,5 @@
 
-// import { userLogin, userLoginByMobile, bindMobile, userRegister, userExit, getmallUserInfo, userInfoUpdata } from '@src/apis/user.js'
+import { getUserInfo } from "@src/apis"
 import { getToken, setToken, removeToken } from '@src/utils/auth.js'
 import router from '@src/router'
 const types = {
@@ -88,8 +88,8 @@ export default {
                 },
 
                 // 获取用户信息
-                async getmallUserInfo({ commit, dispatch }) {
-                        let userInfo = await getmallUserInfo();
+                async getUserInfo({ commit, dispatch }) {
+                        let userInfo = await getUserInfo();
                         commit(types.SET_USERINFO, userInfo);
                 },
 
