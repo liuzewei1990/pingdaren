@@ -11,7 +11,7 @@ NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false })
 router.beforeEach((to, from, next) => {
         NProgress.start()
         if (to.path === '/login' && store.getters.isLogin) {
-                next({ path: '/user' })
+                next({ path: '/userHome' })
                 // NProgress.done()
                 return;
         }

@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import { getArticleDetail, getClassifyList, getUserDetail, postArticleLike } from "@src/apis"
+import { getArticleDetail, getClassifyList, getUserDetail, postArticleLike, postToken } from "@src/apis"
 import Comment from "@src/components/v-comment"
 import Button from "@src/components/v-button"
 import NoData from "@src/components/v-no-data"
@@ -79,6 +79,7 @@ export default {
                 // 用户点赞
                 async postArticleLike() {
                         let newLike = !this.detail.like;
+                        await postToken();
                         let res = await postArticleLike(this.aid, { like: newLike });
                         if (res.status == true) {
                                 this.detail.like = newLike;

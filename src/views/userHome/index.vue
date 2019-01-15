@@ -1,7 +1,7 @@
 <template>
         <TabbarLayout v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false" infinite-scroll-disabled="infiniteDisabled" infinite-scroll-distance="80">
                 <div class="header bottom-1px">
-                        <div class="head_img" @click="$router.push({name:'setting'})">
+                        <div class="head_img" @click="$router.push({name:'userSetting'})">
                                 <img v-if="userInfo.photo" :src="APP.fileUrl + userInfo.photo" alt="">
                                 <img v-else :src="require('@src/assets/img/default.jpg')" alt="">
                         </div>
@@ -12,16 +12,22 @@
                 <div class="count">
                         <ul>
                                 <li>
-                                        <p>{{userInfo.like_nub || 0}}</p>
-                                        <span>我的收藏</span>
+                                        <a href="javascript:void(0);" @click="$router.push({name:'userCollection'})">
+                                                <p>{{userInfo.like_nub || 0}}</p>
+                                                <span>我的收藏</span>
+                                        </a>
                                 </li>
                                 <li>
-                                        <p>{{userInfo.follow_nub || 0}}</p>
-                                        <span>我的关注</span>
+                                        <a href="javascript:void(0);" @click="$router.push({name:'userFollow'})">
+                                                <p>{{userInfo.follow_nub || 0}}</p>
+                                                <span>我的关注</span>
+                                        </a>
                                 </li>
                                 <li>
-                                        <p>{{userInfo.fans_nub || 0}}</p>
-                                        <span>我的粉丝</span>
+                                        <a href="javascript:void(0);" @click="$router.push({name:'userFans'})">
+                                                <p>{{userInfo.fans_nub || 0}}</p>
+                                                <span>我的粉丝</span>
+                                        </a>
                                 </li>
                         </ul>
                 </div>
@@ -39,7 +45,7 @@
 
 <script>
 import TabbarLayout from "@src/layouts/tabbar.vue"
-import ListItem from "@src/views/home/modules/listItem.vue"
+import ListItem from "@src/components/v-listItem"
 import LoadMore from "@src/components/v-load-more"
 import { getUserInfo, getArticleList } from "@src/apis"
 import { mapState, mapActions, mapGetters } from "vuex";
@@ -143,20 +149,25 @@ export default {
 }
 .count {
         background: #fff;
-        padding: 10 / @rem;
+        // padding: 0 10 / @rem;
         box-sizing: border-box;
-        color: #333333;
         ul {
                 display: flex;
                 li {
                         flex: 1;
                         text-align: center;
+                        // display: flex;
+                        a {
+                                padding: 10 / @rem;
+                        }
                         p {
                                 font-size: 18 / @rem;
                                 font-size: 400;
+                                color: #333333;
                         }
                         span {
                                 font-size: 13 / @rem;
+                                color: #333333;
                         }
                 }
         }

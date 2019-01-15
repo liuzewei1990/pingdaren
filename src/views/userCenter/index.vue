@@ -32,7 +32,7 @@
 
 <script>
 import TabbarLayout from "@src/layouts/tabbar.vue"
-import ListItem from "@src/views/home/modules/listItem.vue"
+import ListItem from "@src/components/v-listItem"
 export default {
         components: { TabbarLayout, ListItem },
         data() {

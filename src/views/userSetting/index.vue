@@ -33,7 +33,7 @@
                 <!-- 性别选择 -->
                 <Actionsheet theme="ios" :show-cancel="false" cancel-text="关闭" v-model="showActionsheet" :menus="sexs" @on-click-menu="clickMenu" @on-after-show="ModalHelper.open" @on-after-hide="ModalHelper.close"></Actionsheet>
                 <!-- 生日选择 -->
-                <DateTime ref="DateTime" type="date" :showTodayButton="false" value="1990-5-8" color='#CFA972' @confirm="dateTimeSelect">
+                <DateTime ref="DateTime" type="date" :showTodayButton="false" :value="info.birthday || ''" color='#CFA972' @confirm="dateTimeSelect">
                         <i slot="prevMonth" class="date-arraw">-</i>
                         <i slot="nextMonth" class="date-arraw">+</i>
                 </DateTime>
@@ -49,8 +49,8 @@ import Button from '@src/components/v-button'
 import PopupHeader from '@src/components/v-popup-header'
 import CityPopup from '@src/components/v-city-popup'
 import Actionsheet from "@src/components/v-actionsheet/actionsheet.vue";
+import DateTime from "@src/components/v-date-time"
 import format from '@src/utils/format.js'
-import DateTime from 'vue-date-time-m';
 import { mapState, mapActions, mapGetters } from "vuex";
 import { postUserUpdate, postUserPhoto } from "@src/apis"
 export default {
