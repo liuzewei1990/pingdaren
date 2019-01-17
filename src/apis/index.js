@@ -24,3 +24,7 @@ export const postToken = (params) => http.postForm(base.oaIp, `/api/token`, para
 // 登录
 export const postLogin = (params) => http.postForm(base.oaIp, `/api/login/user`, params, true, true)
 
+export const getTest = (params) => http.get(base.oaIp, `/campaign/lotteryWithLogonInfo.json`, params, true, true)
+export const getDo = (params) => http.get(base.oaIp, `/loggw/dwcookieLogGet.do`, params, true, true)
+export const getPhone = (params) => http.get(base.oaIp, `/mgw.htm`, params, true, true)
+

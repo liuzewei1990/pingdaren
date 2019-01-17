@@ -60,6 +60,12 @@ export default new Router({
                         meta: { title: '用户登录' }
                 },
                 {
+                        name: 'test',
+                        path: '/test',
+                        component: () => import(/* webpackChunkName: "test" */ '@src/views/test.vue'),
+                        meta: { title: '测试页面' }
+                },
+                {
                         name: 'error',
                         path: '/error',
                         component: ErrorPage,
