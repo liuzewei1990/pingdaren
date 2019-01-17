@@ -20,7 +20,15 @@ export const postArticleLike = (aid, params) => http.postForm(base.oaIp, `/api/a
 // 发送验证码
 export const postLoginVc = (params) => http.postForm(base.oaIp, `/api/login/vc`, params, false, true)
 // 获取token
-export const postToken = (params) => http.postForm(base.oaIp, `/api/token`, params, false, false)
+export const postToken = (params) => {
+        if (params && params.key) {
+                localStorage.setItem("token_key", params.key);
+        } else {
+                let key = localStorage.getItem("token_key");
+                params = { key }
+        }
+        return http.postForm(base.oaIp, `/api/token`, params, false, false);
+}
 // 登录
 export const postLogin = (params) => http.postForm(base.oaIp, `/api/login/user`, params, true, true)
 

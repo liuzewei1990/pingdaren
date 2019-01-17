@@ -1,5 +1,6 @@
 <template>
-        <TabbarLayout v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false" infinite-scroll-disabled="infiniteDisabled" infinite-scroll-distance="80">
+        <headerLayout v-infinite-scroll="loadMore" infinite-scroll-immediate-check="false" infinite-scroll-disabled="infiniteDisabled" infinite-scroll-distance="80">
+                <Header class="header-fixed" :title="$route.meta.title"></Header>
                 <ListItem v-for="(item,index) in list" :key="index" :item="item"></ListItem>
                 <div style="min-height:80px; overflow: hidden;">
                         <LoadMore v-if="status=='请求中'" tip="努力加载中..." :showLoading="true"></LoadMore>
@@ -7,24 +8,26 @@
                         <LoadMore v-if="status=='请求失败'" tip="加载失败，点我重试" :showLoading="false" @click.native="loadMore"></LoadMore>
                         <!-- <Nodata v-if="status=='暂无数据'" :imgurl="require('@src/assets/img/bg_empty_data.png')" content='暂无收藏记录'></Nodata> -->
                 </div>
-        </TabbarLayout>
+        </headerLayout>
 </template>
 
 <script>
-import TabbarLayout from "@src/layouts/tabbar.vue"
+import headerLayout from "@src/layouts/headerLayout.vue"
+import Header from "@src/components/v-header"
 import LoadMore from "@src/components/v-load-more"
 import ListItem from "@src/components/v-listItem"
 import infiniteScroll from '@src/directives/vue-infinite-scroll'
 import { getArticleList } from "@src/apis"
 export default {
-        components: { TabbarLayout, ListItem, LoadMore },
+        components: { headerLayout, Header, ListItem, LoadMore },
         directives: { infiniteScroll },
         data() {
                 return {
                         status: "", // 加载状态
                         query: {
                                 p: 0,
-                                self: false
+                                self: true,
+                                dataype: "like"
                         },
                         list: [],
                 }

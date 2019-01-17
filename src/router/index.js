@@ -30,28 +30,40 @@ export default new Router({
                         meta: { title: '发布帖子', requiresAuth: true }
                 },
                 {
-                        name: 'message',
-                        path: '/message',
-                        component: () => import(/* webpackChunkName: "message" */ '@src/views/message/index.vue'),
-                        meta: { title: '消息中心', requiresAuth: true }
+                        name: 'userFans',
+                        path: '/userFans',
+                        component: () => import(/* webpackChunkName: "userFans" */ '@src/views/userFans/index.vue'),
+                        meta: { title: '我的粉丝', requiresAuth: true }
                 },
                 {
-                        name: 'personalCenter',
-                        path: '/personalCenter',
-                        component: () => import(/* webpackChunkName: "personalCenter" */ '@src/views/personalCenter/index.vue'),
+                        name: 'userCenter',
+                        path: '/userCenter',
+                        component: () => import(/* webpackChunkName: "userCenter" */ '@src/views/userCenter/index.vue'),
                         meta: { title: '个人主页' }
                 },
                 {
-                        name: 'setting',
-                        path: '/setting',
-                        component: () => import(/* webpackChunkName: "setting" */ '@src/views/setting/index.vue'),
+                        name: 'userSetting',
+                        path: '/userSetting',
+                        component: () => import(/* webpackChunkName: "userSetting" */ '@src/views/userSetting/index.vue'),
                         meta: { title: '个人资料', requiresAuth: true }
                 },
                 {
-                        name: 'user',
-                        path: '/user',
-                        component: () => import(/* webpackChunkName: "user" */ '@src/views/user/index.vue'),
+                        name: 'userHome',
+                        path: '/userHome',
+                        component: () => import(/* webpackChunkName: "userHome" */ '@src/views/userHome/index.vue'),
                         meta: { title: '个人中心', keepAlive: true, requiresAuth: true }
+                },
+                {
+                        name: 'userFollow',
+                        path: '/userFollow',
+                        component: () => import(/* webpackChunkName: "userFollow" */ '@src/views/userFollow/index.vue'),
+                        meta: { title: '我的关注', requiresAuth: true }
+                },
+                {
+                        name: 'userCollection',
+                        path: '/userCollection',
+                        component: () => import(/* webpackChunkName: "userCollection" */ '@src/views/userCollection/index.vue'),
+                        meta: { title: '我的收藏', requiresAuth: true }
                 },
                 {
                         name: 'login',

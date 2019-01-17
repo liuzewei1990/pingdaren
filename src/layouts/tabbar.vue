@@ -8,7 +8,7 @@
                         <div class="tab-item jia" @click="$router.push({name:'create'})">
                                 <img :src="require('@src/assets/img/add.png')" alt="">
                         </div>
-                        <div class="tab-item" :class="{'active':$route.name == 'user'}" @click="$router.replace({name:'user'})">ME</div>
+                        <div class="tab-item" :class="{'active':$route.name == 'userHome'}" @click="$router.replace({name:'userHome'})">ME</div>
                 </div>
         </div>
 </template>
