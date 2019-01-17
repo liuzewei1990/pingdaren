@@ -48,7 +48,7 @@ axios.interceptors.response.use(function (response) {
                         return Promise.reject(data.msg);
                 }
         } else {
-                router.push(`/error?statusCode=${response.status}&msg=HTTP状态码异常`)
+                // router.push(`/error?statusCode=${response.status}&msg=HTTP状态码异常`)
                 return Promise.reject("HTTP状态码：" + response.status + "异常");
         }
 }, function (error) {
@@ -117,7 +117,7 @@ axios.interceptors.response.use(function (response) {
                 error.message = '未知错误'
         }
 
-        router.push(`/error?statusCode=${error.code}&msg=${error.message}`)
+        // router.push(`/error?statusCode=${error.code}&msg=${error.message}`)
         // Toast(error.message);
         return Promise.reject(error.message)
 })

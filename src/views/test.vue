@@ -2,12 +2,13 @@
         <div id="root">
                 <div class="btns">
                         <Button @click.native="getTest">刷支付宝体验金</Button>
-                        <p class="as">{{ajaxNum}}次，刷中{{total}}次,金额共计：{{fee}}元</p>
+                        <p class="as">累计请求{{ajaxNum}}次，成功{{totalScuuess}}次，失败{{totalFail}}次</p>
+                        <p class="as">刷中{{totalFee}}次，累计金额：{{fee}}元</p>
                         <!-- <Button @click.native="getPhone">刷支付宝新人抽奖次数</Button> -->
                 </div>
                 <ul class="list">
                         <li v-for="(item,index) in datas" :key="index" class="bottom-1px">
-                                <small>【{{index}}】：{{item}}</small>
+                                <small>{{item}}</small>
                         </li>
                 </ul>
         </div>
@@ -22,8 +23,11 @@ export default {
                 return {
                         datas: [],
                         ajaxNum: 0,
-                        total: 0,
+                        totalScuuess: 0,
+                        totalFail: 0,
+                        totalFee: 0,
                         fee: 0,
+                        json_ua_index: 0,
                         json_ua: [
                                 "158MjYcASszHgckNhsNIicXFUw=|MTYTbzM+UEY/NlQSdjJFDmE8QVcfPXZVFXVKVg==|MDYSbyBdEm8nWOl240TdauBb03XrfdJP43rUSOB81SOG|NzMEEV0xN0tBPXkQVGAzCFFvXUdpYBgKczxDoSrKB7hWwHeoLYdB+DKbWK1pnUTvI4pE522OHvhjlwX0KJ9I9S+LA+FxjuOzktn1qZLG9P3Ez/r10cft8+XKyPv5ysv+74+E7uzVnrf3xZKz0vTsob/5+M2Aq+vioYvQoqPLka/b2ZHvBqc2ygWwau8M22OTDqwqjgquVfU=|NjIGHG5vAB1f|NTgbHGVsCANhdREYd1kFNHNOFDpzZ0NVfG5KXXVoR0RyfVlJBH0/TA17ISA=|NDgaRQY0aVg0LFdYa2RXFztxWBUzdVgTfHAj|OzkRYDFAH08xgAO2MeVu|Oj4NFC1ESxctaxNeYyYqdF4+ZGkhHUQidwIo|OToTYzNDHUkmexRJJ2EeqU32|ODsSYjJCHEkvax1JLn4YREcf|PzwVZTVFG08hfRNPIn0tSn4V|Pj0UZDREGk4gfBJOI38VSEoT|PT4XZzdHGU0jfxFNJ34USUsS|PD8WZjZGGEwjfhFMJ3IUTUse|IyAJeSlZB1I1cAdSMGQLSlQp|IiEIeChYBlM2fQBTM2IDWVgG|ISILeytbBVAzegFQNmoBWF4L|ICMKeipaBFE1fwNRMGQHWlgB|JyYJYy1fB2guUPxrw1DpY99Q8mOtIA==|JiYIYyxfBgYxPxkdIlIZCTdHGVs9eQ5HPXUOLlE=|JScPfi9eAVEvnh2pKpx5ww==|JCQKYS5dBAQzPR4XJSASezxFEmk2ewWwNIQP31A=|KykBcCFQD18hkBatJ594zA==|Ki4dBD1UWwc9ewNOczY6ZEkqPH1wTks+e1MoaBe0TA==|KS0eBz5XWAQ+eABNcDU5Z0opP35zTho2KGdnWCR4ew==|KCwfBj9WWQU/eQFMcTQ4ZksoPn9xURhkKAl7MkQeHw==|LysYAThRXgI4fgZLdjM/YUwvOXh2VjE6TlcdbCJQeQ==|LioAHxIqPBUPKyEcFyo5GQIzNwQdMjEYASswAQA0LgAGIjYVHCUqFxomNBIIODgLEjsgERMuPRkHCyg+CgkgORoTKz0XDT09DwohPi8MBT86BGg3bw00",
                                 "029MjYcASszHgckNhsNIicXFUw=|MTYTbzM+UEY/NlQSdjJFDmE8QVcfPXZVFXVKVg==|MDYSbyBdEm8nWOl240TdauBb03XrfdJP43rUSOB81SOG|NzMEEV0xN0tBPXkQVGAzCFFvXUdpYBgKczxDoSrKB7hWwHeoLYdB+DKbWK1pnUTvI4pE522OHvhjlwX0KJ9I9S+LA+FxjuOzktn1qZLG9P3Ez/r10cft8+XKyPv5ysv+74+E7uzVnrf3xZKz0vTsob/5+M2Aq+vioYvQoqPLka/b2ZHvBqc2ygWwau8M22OTDqwqjgquVfU=|NjIGHG5vAB1f|NTgbHGVsCANhdREYd1kFNHNOFDpzZ0NVfG5KXXVoR0RyfVlJBH0/TA17ISA=|NDgaRQY0aVg0LFdYa2RXFztxWBUzdVgTfHAj|OzkRYDFAH08xgAO2MeVu|Oj4NFC1ESxctaxNeYyYqdF4+ZGkhHUQidwIo|OToTYzNDHUkmexRJJ2EeqU32|ODsSYjJCHEkvax1JLn4YREcf|PzwVZTVFG08hfRNPIn0tSn4V|Pj0UZDREGk4gfBJOI38VSEoT|PT4XZzdHGU0jfxFNJ34USUsS|PD8WZjZGGEwjfhFMJ3IUTUse|IyAJeSlZB1I1cAdSMGQLSlQp|IiEIeChYBlM2fQBTM2IDWVgG|ISILeytbBVAzegFQNmoBWF4L|ICMKeipaBFE1fwNRMGQHWlgB|JyYJYy1fB2guUPxrw1DpY99Q8mOtIA==|JiYIYyxfBgYxPxkdIlIZCTdHGVs9eQ5HPXUOLlE=|JScPfi9eAVEvnh2pKpx5ww==|JCQKYS5dBAQzPR4XJSASezxFEmk2ewWwNIQP31A=|KykBcCFQD18hkBatJ594zA==|Ki4EGxYuOBELLyUYEy49HQY3MwAZNjUcBS80BQQwKgQCJjIRGCEuEx4iMBYMPDwPFj8kFRcqOR0DDyw6Dg0kPR4XLzkTCUg=",
@@ -94,10 +98,15 @@ export default {
                         function jsonp1547540078606(data) {
 
                                 _this.datas.unshift(data);
-                                if (data.stat == "ok" && data.fee) {
-                                        _this.total++;
-                                        _this.fee += data.fee;
-                                        _this.Toast.fail(`请求状态：${data.stat} -----获得金额：${data.fee || 'null'}元`)
+                                if (data.stat == "ok") {
+                                        _this.totalScuuess++;
+                                        if (data.fee) {
+                                                _this.totalFee++;
+                                                _this.fee += Number(data.fee);
+                                                _this.Toast.fail(`本次获得金额：${data.fee}元`)
+                                        }
+                                } else {
+                                        _this.totalFail++;
                                 }
                         }
 
@@ -105,30 +114,38 @@ export default {
                         //         data: "DW-COOKIE,db0d6cd7-b55c-4f67-976e-6e34e2b1befe_1547687997397,,clicked,a166.b_activity_fd_180897.ca888.da2700,a166.b_activity_fd_180897,http://render.29shm4.com/p/f/fd-jqqeh032/pages/outside/index.html,a166.b_activity_fd_180897.ca888.da2700|a166.b_activity_fd_180897_766e5bff-f468-40ee-8913-0abe7ddb2e7d_1547687800783,mBizScenario=^mPageState=^fullURL=http://render.29shm4.com/p/f/fd-jqqeh032/pages/outside/index.html?shareid=2088502267377746&sign=pdkpcxBE0WQfI6zdmKHow/uk0b4tL4iJ2o1dmYd2aJo=^ref=-^clientID=6c548b2a-dfc9-4f37-add1-fcf80e1afc09_1547685936507,,,a166.b_activity_fd_180897_49c59b80-0fb0-443a-8e7e-9760dc84026e_1547687997398,Mozilla/5.0 (iPhone; CPU iPhone OS 12_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML%2C like Gecko) Version/12.0 Mobile/15E148 Safari/604.1,H5,/|safari/12.0|ios/12.1.2,a166.b_activity_fd_180897.ca888.da2700,a166.b_activity_fd_180897_766e5bff-f468-40ee-8913-0abe7ddb2e7d_1547687800783,FORTUNEAPP,,750,1255,2,,",
                         //         time: Date.now()
                         // });
+                        if (this.json_ua_index % this.json_ua.length == 0) this.json_ua_index = 0;
+                        if (this.ajaxNum % 6 == 0) this.json_ua_index++;
+                        try {
+                                let res = await getTest({
+                                        // config中取
+                                        campInfo: "p1j%2BdzkZl03BbvY4ClDID7%2FGiTlLCEEq0EmyB5yLfH2lIGLw2ZgnyTMSXAcf56tw",
+                                        bindMobile: this.getMoble(),
+                                        // 固定的值
+                                        bizType: "c2cShare",
+                                        shareId: "2088502267377746",
+                                        // config中取
+                                        snsScene: "yebTrialFoundSns",
+                                        sign: "pdkpcxBE0WQfI6zdmKHow%2Fuk0b4tL4iJ2o1dmYd2aJo%3D",
+                                        // json_ua: window.json_ua,
+                                        // json_ua: this.json_ua[this.ajaxNum % this.json_ua.length],
+                                        json_ua: this.json_ua[this.json_ua_index],
 
-                        let res = await getTest({
-                                // config中取
-                                campInfo: "p1j%2BdzkZl03BbvY4ClDID7%2FGiTlLCEEq0EmyB5yLfH2lIGLw2ZgnyTMSXAcf56tw",
-                                bindMobile: this.getMoble(),
-                                // 固定的值
-                                bizType: "c2cShare",
-                                shareId: "2088502267377746",
-                                // config中取
-                                snsScene: "yebTrialFoundSns",
-                                sign: "pdkpcxBE0WQfI6zdmKHow%2Fuk0b4tL4iJ2o1dmYd2aJo%3D",
-                                // json_ua: window.json_ua,
-                                json_ua: this.json_ua[this.ajaxNum % this.json_ua.length],
+                                        // json_ua: "158MjYcASszHgckNhsNIicXFUw=|MTYTbzM+UEY/NlQSdjJFDmE8QVcfPXZVFXVKVg==|MDYSbyBdEm8nWOl240TdauBb03XrfdJP43rUSOB81SOG|NzMEEV0xN0tBPXkQVGAzCFFvXUdpYBgKczxDoSrKB7hWwHeoLYdB+DKbWK1pnUTvI4pE522OHvhjlwX0KJ9I9S+LA+FxjuOzktn1qZLG9P3Ez/r10cft8+XKyPv5ysv+74+E7uzVnrf3xZKz0vTsob/5+M2Aq+vioYvQoqPLka/b2ZHvBqc2ygWwau8M22OTDqwqjgquVfU=|NjIGHG5vAB1f|NTgbHGVsCANhdREYd1kFNHNOFDpzZ0NVfG5KXXVoR0RyfVlJBH0/TA17ISA=|NDgaRQY0aVg0LFdYa2RXFztxWBUzdVgTfHAj|OzkRYDFAH08xgAO2MeVu|Oj4NFC1ESxctaxNeYyYqdF4+ZGkhHUQidwIo|OToTYzNDHUkmexRJJ2EeqU32|ODsSYjJCHEkvax1JLn4YREcf|PzwVZTVFG08hfRNPIn0tSn4V|Pj0UZDREGk4gfBJOI38VSEoT|PT4XZzdHGU0jfxFNJ34USUsS|PD8WZjZGGEwjfhFMJ3IUTUse|IyAJeSlZB1I1cAdSMGQLSlQp|IiEIeChYBlM2fQBTM2IDWVgG|ISILeytbBVAzegFQNmoBWF4L|ICMKeipaBFE1fwNRMGQHWlgB|JyYJYy1fB2guUPxrw1DpY99Q8mOtIA==|JiYIYyxfBgYxPxkdIlIZCTdHGVs9eQ5HPXUOLlE=|JScPfi9eAVEvnh2pKpx5ww==|JCQKYS5dBAQzPR4XJSASezxFEmk2ewWwNIQP31A=|KykBcCFQD18hkBatJ594zA==|Ki4dBD1UWwc9ewNOczY6ZEkqPH1wTks+e1MoaBe0TA==|KS0eBz5XWAQ+eABNcDU5Z0opP35zTho2KGdnWCR4ew==|KCwfBj9WWQU/eQFMcTQ4ZksoPn9xURhkKAl7MkQeHw==|LysYAThRXgI4fgZLdjM/YUwvOXh2VjE6TlcdbCJQeQ==|LioAHxIqPBUPKyEcFyo5GQIzNwQdMjEYASswAQA0LgAGIjYVHCUqFxomNBIIODgLEjsgERMuPRkHCyg+CgkgORoTKz0XDT09DwohPi8MBT86BGg3bw00",
+                                        // _json_token: window._json_token,
+                                        _callback: "jsonp1547540078606"
+                                })
+                                this.ajaxNum++;
+                                window.UA_Opt.reload()
+                                eval(res)
 
-                                // json_ua: "158MjYcASszHgckNhsNIicXFUw=|MTYTbzM+UEY/NlQSdjJFDmE8QVcfPXZVFXVKVg==|MDYSbyBdEm8nWOl240TdauBb03XrfdJP43rUSOB81SOG|NzMEEV0xN0tBPXkQVGAzCFFvXUdpYBgKczxDoSrKB7hWwHeoLYdB+DKbWK1pnUTvI4pE522OHvhjlwX0KJ9I9S+LA+FxjuOzktn1qZLG9P3Ez/r10cft8+XKyPv5ysv+74+E7uzVnrf3xZKz0vTsob/5+M2Aq+vioYvQoqPLka/b2ZHvBqc2ygWwau8M22OTDqwqjgquVfU=|NjIGHG5vAB1f|NTgbHGVsCANhdREYd1kFNHNOFDpzZ0NVfG5KXXVoR0RyfVlJBH0/TA17ISA=|NDgaRQY0aVg0LFdYa2RXFztxWBUzdVgTfHAj|OzkRYDFAH08xgAO2MeVu|Oj4NFC1ESxctaxNeYyYqdF4+ZGkhHUQidwIo|OToTYzNDHUkmexRJJ2EeqU32|ODsSYjJCHEkvax1JLn4YREcf|PzwVZTVFG08hfRNPIn0tSn4V|Pj0UZDREGk4gfBJOI38VSEoT|PT4XZzdHGU0jfxFNJ34USUsS|PD8WZjZGGEwjfhFMJ3IUTUse|IyAJeSlZB1I1cAdSMGQLSlQp|IiEIeChYBlM2fQBTM2IDWVgG|ISILeytbBVAzegFQNmoBWF4L|ICMKeipaBFE1fwNRMGQHWlgB|JyYJYy1fB2guUPxrw1DpY99Q8mOtIA==|JiYIYyxfBgYxPxkdIlIZCTdHGVs9eQ5HPXUOLlE=|JScPfi9eAVEvnh2pKpx5ww==|JCQKYS5dBAQzPR4XJSASezxFEmk2ewWwNIQP31A=|KykBcCFQD18hkBatJ594zA==|Ki4dBD1UWwc9ewNOczY6ZEkqPH1wTks+e1MoaBe0TA==|KS0eBz5XWAQ+eABNcDU5Z0opP35zTho2KGdnWCR4ew==|KCwfBj9WWQU/eQFMcTQ4ZksoPn9xURhkKAl7MkQeHw==|LysYAThRXgI4fgZLdjM/YUwvOXh2VjE6TlcdbCJQeQ==|LioAHxIqPBUPKyEcFyo5GQIzNwQdMjEYASswAQA0LgAGIjYVHCUqFxomNBIIODgLEjsgERMuPRkHCyg+CgkgORoTKz0XDT09DwohPi8MBT86BGg3bw00",
-                                // _json_token: window._json_token,
-                                _callback: "jsonp1547540078606"
-                        })
-                        this.ajaxNum++;
-                        window.UA_Opt.reload()
-                        eval(res)
-                        setTimeout(() => {
+                                setTimeout(() => {
+                                        this.getTest()
+                                }, 1000 * 20)
+                        } catch (error) {
                                 this.getTest()
-                        }, 1000)
+                        }
+
 
                 }
         }
